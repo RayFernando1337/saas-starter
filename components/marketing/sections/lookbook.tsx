@@ -22,17 +22,15 @@ export function Lookbook() {
           </Reveal>
           <Reveal delay={150}>
             <figure className="mt-12">
-              <div className="relative aspect-[3/4] overflow-hidden bg-muted">
-                <Reveal variant="clip" className="absolute inset-0">
-                  <Image
-                    src={assets.look2}
-                    alt="Greyscale lookbook photograph, detail study"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 33vw"
-                    className="img-grey object-cover"
-                  />
-                </Reveal>
-              </div>
+              <Reveal variant="curtain" className="aspect-[3/4] bg-muted">
+                <Image
+                  src={assets.look2}
+                  alt="Greyscale lookbook photograph, detail study"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="img-grey object-cover"
+                />
+              </Reveal>
               <figcaption className="label-sable mt-4 flex justify-between text-mid">
                 <span>02 — Account area</span>
                 <span style={{ fontVariantNumeric: "tabular-nums" }}>/settings</span>
@@ -43,17 +41,15 @@ export function Lookbook() {
         <div className="col-span-8 max-md:col-span-1">
           <Reveal delay={80}>
             <figure>
-              <div className="relative aspect-[16/11] overflow-hidden bg-muted">
-                <Reveal variant="clip" className="absolute inset-0">
-                  <Image
-                    src={assets.look1}
-                    alt="Greyscale lookbook photograph, full composition"
-                    fill
-                    sizes="(max-width: 768px) 100vw, 66vw"
-                    className="img-grey object-cover"
-                  />
-                </Reveal>
-              </div>
+              <Reveal variant="curtain" className="aspect-[16/11] bg-muted">
+                <Image
+                  src={assets.look1}
+                  alt="Greyscale lookbook photograph, full composition"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 66vw"
+                  className="img-grey object-cover"
+                />
+              </Reveal>
               <figcaption className="label-sable mt-4 flex justify-between text-mid">
                 <span>01 — Authenticated dashboard</span>
                 <span style={{ fontVariantNumeric: "tabular-nums" }}>/dashboard</span>

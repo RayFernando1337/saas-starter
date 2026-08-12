@@ -5,8 +5,12 @@ import { cn } from "@/lib/utils";
 
 type RevealProps = {
   children: ReactNode;
-  /** "clip" unmasks vertically; "fade" rises and fades in. */
-  variant?: "clip" | "fade";
+  /**
+   * "fade" rises and fades in. "curtain" wipes an overlay upward to unmask
+   * media — used instead of clip-path so the browser still lazy-loads images
+   * (Chromium skips lazy images whose visible area is zero).
+   */
+  variant?: "fade" | "curtain";
   delay?: number;
   className?: string;
 };
@@ -33,10 +37,19 @@ export function Reveal({ children, variant = "fade", delay = 0, className }: Rev
     return () => observer.disconnect();
   }, []);
 
+  if (variant === "curtain") {
+    return (
+      <div ref={ref} className={cn("reveal-curtain-wrap", className)}>
+        {children}
+        <span className="reveal-curtain" aria-hidden="true" />
+      </div>
+    );
+  }
+
   return (
     <div
       ref={ref}
-      className={cn(variant === "clip" ? "reveal-clip" : "reveal-fade", className)}
+      className={cn("reveal-fade", className)}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
     >
       {children}

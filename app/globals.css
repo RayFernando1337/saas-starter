@@ -350,13 +350,20 @@
     }
   }
 
-  /* Scroll-triggered vertical clip reveal (lookbook) */
-  .reveal-clip {
-    clip-path: inset(100% 0 0 0);
-    transition: clip-path 1.1s var(--ease-sable);
+  /* Scroll-triggered vertical unmask (lookbook). A curtain overlay slides up
+     rather than clip-path so lazily loaded images underneath still fetch. */
+  .reveal-curtain-wrap {
+    position: relative;
+    overflow: hidden;
   }
-  .reveal-clip.on {
-    clip-path: inset(0 0 0 0);
+  .reveal-curtain {
+    position: absolute;
+    inset: -1px;
+    background: var(--background);
+    transition: transform 1.1s var(--ease-sable);
+  }
+  .reveal-curtain-wrap.on .reveal-curtain {
+    transform: translateY(-102%);
   }
 
   .reveal-fade {
@@ -404,11 +411,12 @@
     opacity: 1;
     transform: none;
   }
-  .reveal-clip,
   .reveal-fade {
-    clip-path: none;
     opacity: 1;
     transform: none;
+  }
+  .reveal-curtain {
+    display: none;
   }
   .ticker-track {
     animation: none;
