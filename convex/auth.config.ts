@@ -6,7 +6,7 @@
  * deployment, not in .env.local. The applicationID must match the name of the
  * JWT template you create in the Clerk dashboard: "convex".
  */
-export default {
+const authConfig = {
   providers: [
     {
       domain: process.env.CLERK_JWT_ISSUER_DOMAIN,
@@ -14,3 +14,5 @@ export default {
     },
   ],
 };
+
+export default authConfig;
