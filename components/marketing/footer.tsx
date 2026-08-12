@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { CurrentYear } from "@/components/marketing/current-year";
 
 export function MarketingFooter() {
   return (
@@ -61,7 +62,7 @@ export function MarketingFooter() {
           Sable
         </span>
         <p className="label-sable text-mid">
-          © {new Date().getFullYear()} — MIT licensed template. Make it yours.
+          © <CurrentYear /> — MIT licensed template. Make it yours.
         </p>
       </div>
     </footer>

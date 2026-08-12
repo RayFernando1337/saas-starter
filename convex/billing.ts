@@ -8,9 +8,16 @@ import { isEntitled } from "../lib/subscription";
 
 const stripe = new StripeSubscriptions(components.stripe, {});
 
-/** Where Stripe redirects back to. Set SITE_URL on the Convex deployment in prod. */
+/** Where Stripe redirects back to. No fallback: a wrong value silently strands
+ * paying customers on a dead URL after checkout. */
 function siteUrl(): string {
-  return process.env.SITE_URL ?? "http://localhost:3000";
+  const url = process.env.SITE_URL;
+  if (!url) {
+    throw new Error(
+      "SITE_URL is not set on the Convex deployment. Run `npx convex env set SITE_URL http://localhost:3000` (or your production URL).",
+    );
+  }
+  return url;
 }
 
 /** The only price checkout sells. Set STRIPE_PRICE_PRO on the Convex deployment. */
