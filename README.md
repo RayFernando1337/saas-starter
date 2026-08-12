@@ -126,6 +126,7 @@ NEXT_PUBLIC_STRIPE_PRICE_PRO=price_...
 
 ```bash
 npx convex env set STRIPE_SECRET_KEY sk_test_...       # Stripe → Developers → API keys
+npx convex env set STRIPE_PRICE_PRO price_...          # same price ID as NEXT_PUBLIC_STRIPE_PRICE_PRO
 npx convex env set SITE_URL http://localhost:3000      # where Stripe redirects back to
 ```
 

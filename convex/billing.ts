@@ -4,12 +4,24 @@ import { components } from "./_generated/api";
 import { StripeSubscriptions } from "@convex-dev/stripe";
 import { v } from "convex/values";
 import { requireIdentity } from "./lib/auth";
+import { isEntitled } from "../lib/subscription";
 
 const stripe = new StripeSubscriptions(components.stripe, {});
 
 /** Where Stripe redirects back to. Set SITE_URL on the Convex deployment in prod. */
 function siteUrl(): string {
   return process.env.SITE_URL ?? "http://localhost:3000";
+}
+
+/** The only price checkout sells. Set STRIPE_PRICE_PRO on the Convex deployment. */
+function proPriceId(): string {
+  const priceId = process.env.STRIPE_PRICE_PRO;
+  if (!priceId) {
+    throw new Error(
+      "STRIPE_PRICE_PRO is not set. Run `npx convex env set STRIPE_PRICE_PRO price_...`.",
+    );
+  }
+  return priceId;
 }
 
 export const subscriptionValidator = v.object({
@@ -39,6 +51,18 @@ export const createSubscriptionCheckout = action({
   }),
   handler: async (ctx, args) => {
     const identity = await requireIdentity(ctx);
+
+    if (args.priceId !== proPriceId()) {
+      throw new Error("Unknown price");
+    }
+
+    const subscriptions = await ctx.runQuery(
+      components.stripe.public.listSubscriptionsByUserId,
+      { userId: identity.subject },
+    );
+    if (subscriptions.some(isEntitled)) {
+      throw new Error("You already have an active subscription");
+    }
 
     const customer = await stripe.getOrCreateCustomer(ctx, {
       userId: identity.subject,

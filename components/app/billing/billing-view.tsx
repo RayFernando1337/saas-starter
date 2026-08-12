@@ -110,9 +110,11 @@ export function BillingView() {
                   </Badge>
                 </div>
                 <p className="mt-3 text-[13.5px] text-mid">
-                  {subscription.cancelAtPeriodEnd
-                    ? `Access ends ${formatStripeDate(subscription.currentPeriodEnd)}.`
-                    : `Renews ${formatStripeDate(subscription.currentPeriodEnd)}.`}
+                  {!entitled
+                    ? `Ended ${formatStripeDate(subscription.currentPeriodEnd)}. Upgrade below to resubscribe.`
+                    : subscription.cancelAtPeriodEnd
+                      ? `Access ends ${formatStripeDate(subscription.currentPeriodEnd)}.`
+                      : `Renews ${formatStripeDate(subscription.currentPeriodEnd)}.`}
                 </p>
               </>
             ) : (
@@ -151,7 +153,7 @@ export function BillingView() {
                 {pending === "cancel" ? "Canceling…" : "Cancel"}
               </Button>
             )}
-            {subscription && subscription.cancelAtPeriodEnd && (
+            {subscription && entitled && subscription.cancelAtPeriodEnd && (
               <Button
                 className="label-sable h-auto px-6 py-3.5"
                 disabled={pending !== null}
