@@ -249,6 +249,10 @@
     text-transform: uppercase;
     color: var(--ink);
   }
+  /* Variant for ink backgrounds; the underline follows via currentColor. */
+  .btn-line--bone {
+    color: var(--bone);
+  }
   .btn-line::after {
     content: "";
     position: absolute;

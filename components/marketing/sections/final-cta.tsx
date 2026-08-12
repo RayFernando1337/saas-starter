@@ -20,7 +20,7 @@ export function FinalCta() {
             <Link href="/sign-up" className="btn-bone">
               Start free
             </Link>
-            <Link href="/sign-in" className="btn-line !text-bone">
+            <Link href="/sign-in" className="btn-line btn-line--bone">
               Sign in
             </Link>
           </div>
