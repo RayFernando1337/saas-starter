@@ -62,7 +62,8 @@ export function MarketingFooter() {
           Sable
         </span>
         <p className="label-sable text-mid">
-          © <CurrentYear /> — MIT licensed template. Make it yours.
+          © <CurrentYear serverYear={new Date().getFullYear()} /> — MIT
+          licensed template. Make it yours.
         </p>
       </div>
     </footer>
